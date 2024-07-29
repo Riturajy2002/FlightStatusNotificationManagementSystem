@@ -1,0 +1,66 @@
+<div class="flight-info-container" ng-controller="FlightStatusController">
+    <h1>Air India Flight Information</h1>
+    <div class="form-group">
+        <label for="flightCode">Flight Code</label>
+        <select id="flightCode" ng-model="selectedFlightCode" ng-options="flight for flight in flights"></select>
+        <button ng-click="showDetails()">Show Details</button>
+    </div>
+
+    <div ng-if="flightDetails">
+        <h3>Flight Details for Flight Code: {{ selectedFlightCode }}:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Flight Code</th>
+                    <th>Flight Name</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Capacity</th>
+                    <th>Class Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ flightDetails.flightNumber }}</td>
+                    <td>{{ flightDetails.flightName }}</td>
+                    <td>{{ flightDetails.source }}</td>
+                    <td>{{ flightDetails.destination }}</td>
+                    <td>{{ flightDetails.capacity }}</td>
+                    <td>{{ flightDetails.className }}</td>
+                    <td>{{ flightDetails.price }}</td>
+                    <td>
+                        <button ng-click="getFlightStatus(flightDetails.flightNumber)">Status</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="flightStatus">
+        <h3>Flight Status for Flight Number: {{ selectedFlightCode }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Arrival Time</th>
+                    <th>Departure Time</th>
+                    <th>Gate</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ flightStatus.arrivalTime | date:'short' }}</td>
+                    <td>{{ flightStatus.departureTime | date:'short' }}</td>
+                    <td>{{ flightStatus.gate }}</td>
+                    <td>{{ flightStatus.status }}</td>
+                    <td>
+                        <button ng-click="shareNotification(flightDetails)">Share Notification</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
